@@ -31,10 +31,10 @@
 		<div class="form-group">
 			<label>Display by</label>
 			<select name="display" class="form-control">
-			  <option>Crime type</option>
-			  <option>Domestic or street</option>
-			  <option>Arrest made</option>
-			  <option>Region</option>
+			  <option value="1">Crime type</option>
+			  <option value="2">Domestic or street</option>
+			  <option value="3">Arrest made</option>
+			  <option value="4">Region</option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -49,71 +49,64 @@
 			<button type="submit" class="btn btn-default">Display</button>
 		</div>
 	</form>
-	<h2 class="col-md-10 text-center"> Crime type </h2>
-	<div id="test"></div>
-	<div id="table" class="col-md-10"></div>
-    <script src="//d3js.org/d3.v3.min.js"></script>
-	<script src="bullet.js"></script>
-	<script>
-
-		var margin = {top: 5, right: 40, bottom: 20, left: 120},
-			width = 960 - margin.left - margin.right,
-			height = 50 - margin.top - margin.bottom;
-
-		var chart = d3.bullet()
-			.width(width)
-			.height(height);
-
-		d3.json("/get_primary_type", function(error, data) {
-		  if (error) throw error;
-
-		  var svg = d3.select("#table").selectAll("svg")
-			  .data(data)
-			.enter().append("svg")
-			  .attr("class", "bullet")
-			  .attr("width", width + margin.left + margin.right)
-			  .attr("height", height + margin.top + margin.bottom)
-			.append("g")
-			  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-			  .call(chart);
-
-		  var title = svg.append("g")
-			  .style("text-anchor", "end")
-			  .attr("transform", "translate(-6," + height / 2 + ")");
-
-		  title.append("text")
-			  .attr("class", "title")
-			  .text(function(d) { return d.title; });
-
-		  title.append("text")
-			  .attr("class", "subtitle")
-			  .attr("dy", "1em")
-			  .text(function(d) { return d.subtitle; });
-
-		  d3.selectAll("button").on("click", function() {
-			svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
-		  });
-		});
-
-		function randomize(d) {
-		  if (!d.randomizer) d.randomizer = randomizer(d);
-		  d.ranges = d.ranges.map(d.randomizer);
-		  d.markers = d.markers.map(d.randomizer);
-		  d.measures = d.measures.map(d.randomizer);
-		  return d;
-		}
-
-		function randomizer(d) {
-		  var k = d3.max(d.ranges) * .2;
-		  return function(d) {
-			return Math.max(0, d + k * (Math.random() - .5));
-		  };
-		}
-
-	</script>
+	<div id="container" class="col-md-10"></div>
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script>
+		$('document').ready(function () { 
+			$.ajax({
+				type: 'get',
+				url: '/get_primary_type',
+				datatype: 'json',
+				success: function(data){
+					var myChart = Highcharts.chart('container', {
+						chart: {
+							type: 'bar'
+						},
+						title: {
+							text: 'Crime type'
+						},
+						xAxis: {
+							categories: data['types']
+						},
+						yAxis: {
+						},
+						series: [{
+							data: data['values']
+						}]
+					});
+				}
+			});
+		});
+		$('button').on('click', function(){
+			$.ajax({
+				type: 'post',
+				url: '/update_date',
+				datatype: 'json',
+				success: function(data){
+					var myChart = Highcharts.chart('container', {
+						chart: {
+							type: 'bar'
+						},
+						title: {
+							text: 'Crime type'
+						},
+						xAxis: {
+							categories: data['types']
+						},
+						yAxis: {
+						},
+						series: [{
+							data: data['values']
+						}]
+					});
+				}
+			});
+		});
+	</script>
 	<script type="text/javascript">
         $(function () {
             $('.datepicker').datepicker();
