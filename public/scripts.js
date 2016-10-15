@@ -22,8 +22,8 @@ $('document').ready(function () {
 						data: data['values']
 					}]
 				});
-				}
-			});
+			}
+		});
 	}
 
 	$.ajax({
@@ -31,22 +31,30 @@ $('document').ready(function () {
 		url: '/get_primary_type',
 		datatype: 'json',
 		success: function(data){
-			var myChart = Highcharts.chart('container', {
-				chart: {
-					type: 'bar'
-				},
-				title: {
-					text: 'Crime type'
-				},
-				xAxis: {
-					categories: data['types']
-				},
-				yAxis: {
-				},
-				series: [{
-					data: data['values']
-				}]
-			});
+			types = [];
+				values = [];
+				
+				for(var i = 0; i<data.length; i++){
+					types[i] = data[i]['column'];
+					values[i] = parseInt(data[i]['count']);
+				}
+				
+				var myChart = Highcharts.chart('container', {
+					chart: {
+						type: 'bar'
+					},
+					title: {
+						text: 'Crime type'
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
 			}
 		});
 
@@ -56,6 +64,14 @@ $('document').ready(function () {
 			url: '/update_date',
 			datatype: 'json',
 			success: function(data){
+				types = [];
+				values = [];
+				
+				for(var i = 0; i<data.length; i++){
+					types[i] = data[i]['column'];
+					values[i] = parseInt(data[i]['count']);
+				}
+				
 				var myChart = Highcharts.chart('container', {
 					chart: {
 						type: 'bar'
@@ -64,12 +80,12 @@ $('document').ready(function () {
 						text: 'Crime type'
 					},
 					xAxis: {
-						categories: data['types']
+						categories: types
 					},
 					yAxis: {
 					},
 					series: [{
-						data: data['values']
+						data: values
 					}]
 				});
 			}

@@ -22,37 +22,35 @@ server.get('/', function (req, res) {
   res.sendFile(__dirname + "/public/" + "index.html");
 });
 
-var results = [];
-var graphData = {};
-
-var query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
-query.on('row', (row) => {
-		results.push(row);
-	});
-
-query.on('end', () => {
-	types = [];
-	values = [];
-	
-	for(var i = 0; i<results.length; i++){
-		types[i] = results[i]['column'];
-		values[i] = parseInt(results[i]['count']);
-	}
-	
-	graphData['types'] = types;
-	graphData['values'] = values;
-});
-
 server.post('/update_date', function(req,res){
+	var results = [];
+	var query;
 	if(req.body.display == 1){
 		query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
 	}
 	else{
 		query = client.query("select COUNT(id), domestic as column from crimes group by domestic order by COUNT(id) DESC");
 	}
+	query.on('row', (row) => {
+		results.push(row);
+	});
+	query.on('end', () => {
+		console.log(results);
+		res.setHeader('Content-Type', 'application/json');
+		res.send(JSON.stringify(results));
+	});
 });
 
 server.get('/get_primary_type', function(req,res){
-	res.setHeader('Content-Type', 'application/json');
-	res.send(JSON.stringify(graphData));
+	var results = [];
+
+	var query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
+	query.on('row', (row) => {
+		results.push(row);
+	});
+	query.on('end', () => {
+		console.log(results);
+		res.setHeader('Content-Type', 'application/json');
+		res.send(JSON.stringify(results));
+	});
 });
