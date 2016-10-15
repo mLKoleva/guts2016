@@ -1,29 +1,105 @@
 $('document').ready(function () { 
-	
-	function create_widget(url,type) {
-		$.ajax({
-			type: 'get',
-			url: url,
-			datatype: 'json',
-			success: function(data){
-				var myChart = Highcharts.chart('container', {
+	var charts_definition = {
+			line:{
 					chart: {
-						type: 'bar'
-					},
-					title: {
-						text: 'Crime type'
-					},
-					xAxis: {
-						categories: data['types']
-					},
-					yAxis: {
-					},
-					series: [{
-						data: data['values']
-					}]
-				});
-				}
-			});
+						renderTo : "wd1"
+		            	type: 'line'
+		        	},
+		        	title: {
+		            	text: ''
+		        	},
+		        	xAxis: {
+		            	categories: []
+		        	},
+		        	yAxis: {
+		            	title: {
+		                	text: ''
+		            	}
+		        	},
+		        	series: [{
+		            	name: '',
+		            	data: []
+		        	}, {
+		            	name: '',
+		            	data: []
+		        	}]
+			},
+			bar:{
+				chart: {
+					renderTo : "wd2"
+	            	type: 'bar'
+	        	},
+	        	title: {
+	            	text: ''
+	        	},
+	        	xAxis: {
+	            	categories: []
+	        	},
+	        	yAxis: {
+	            	title: {
+	                	text: ''
+	            	}
+	        	},
+	        	series: [{
+	            	name: '',
+	            	data: []
+	        	}, {
+	            	name: '',
+	            	data: []
+	        	}]				
+			},
+			column:{
+				chart: {
+					renderTo : "wd3"
+	            	type: 'column'
+	        	},
+	        	title: {
+	            	text: ''
+	        	},
+	        	xAxis: {
+	            	categories: []
+	        	},
+	        	yAxis: {
+	            	title: {
+	                	text: ''
+	            	}
+	        	},
+	        	series: [{
+	            	name: '',
+	            	data: []
+	        	}, {
+	            	name: '',
+	            	data: []
+	        	}]
+			},
+			pie:{
+				chart: {
+					renderTo : "wd4"
+	            	type: 'pie'
+	        	},
+	        	title: {
+	            	text: ''
+	        	},
+	        	xAxis: {
+	            	categories: []
+	        	},
+	        	yAxis: {
+	            	title: {
+	                	text: ''
+	            	}
+	        	},
+	        	series: [{
+	            	name: '',
+	            	data: []
+	        	}, {
+	            	name: '',
+	            	data: []
+	        	}]
+			}
+	};
+
+	function create_widget(title,categories,yAxis_title,) {
+
 	}
 
 	$.ajax({
