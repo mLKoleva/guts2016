@@ -26,11 +26,30 @@ server.post('/', function(req,res){
 	var results = [];
 	var query;
 	console.log(req);
-	if(req.body.display == 1){
-		query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
+	
+	var type;
+	switch(req.body.type){
+		case "1" : type = "primary_type";
+		break;
+		case "2" : type = "'SEXUAL OFFENSE'";
+		break;
+		case "3" : type = "'NARCOTICS'";
+		break;
+		case "4" : type = "'THEFT'";
+		break;
+		case "5" : type = "'HOMICIDE'";
+		break;
 	}
-	else{
-		query = client.query("select COUNT(id), domestic as column from crimes group by domestic order by COUNT(id) DESC");
+	switch(req.body.display){
+		default:
+		case '1' : query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' and primary_type = '" + type + "' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
+					break;
+		case '2' : query = client.query("select COUNT(id), domestic as column from crimes where primary_type = " + type + " group by domestic order by COUNT(id) DESC");
+					break;
+		case '3' : query = client.query("select COUNT(id), arrest as column from crimes where primary_type = " + type + " group by arrest order by COUNT(id) DESC");
+					break;
+		case '4' : query = client.query("select * from(select COUNT(id),district as column from crimes where primary_type = " + type + " group by district ORDER BY COUNT(id) DESC) limit 5");
+					break;
 	}
 	query.on('row', (row) => {
 		results.push(row);
