@@ -2,7 +2,7 @@ $('document').ready(function () {
 	var charts_definition = {
 			line:{
 					chart: {
-						renderTo : "wd1"
+						renderTo : "wd1",
 		            	type: 'line'
 		        	},
 		        	title: {
@@ -26,7 +26,7 @@ $('document').ready(function () {
 			},
 			bar:{
 				chart: {
-					renderTo : "wd2"
+					renderTo : "wd2",
 	            	type: 'bar'
 	        	},
 	        	title: {
@@ -50,7 +50,7 @@ $('document').ready(function () {
 			},
 			column:{
 				chart: {
-					renderTo : "wd3"
+					renderTo : "wd3",
 	            	type: 'column'
 	        	},
 	        	title: {
@@ -74,7 +74,7 @@ $('document').ready(function () {
 			},
 			pie:{
 				chart: {
-					renderTo : "wd4"
+					renderTo : "wd4",
 	            	type: 'pie'
 	        	},
 	        	title: {
@@ -98,7 +98,7 @@ $('document').ready(function () {
 			}
 	};
 
-	function create_widget(title,categories,yAxis_title,) {
+	function create_widget(title,categories,yAxis_title) {
 
 	}
 
@@ -137,7 +137,7 @@ $('document').ready(function () {
 	$('button').on('click', function(){
 		$.ajax({
 			type: 'post',
-			url: '/update_date',
+			url: '/',
 			datatype: 'json',
 			success: function(data){
 				types = [];

@@ -22,9 +22,10 @@ server.get('/', function (req, res) {
   res.sendFile(__dirname + "/public/" + "index.html");
 });
 
-server.post('/update_date', function(req,res){
+server.post('/', function(req,res){
 	var results = [];
 	var query;
+	console.log(req);
 	if(req.body.display == 1){
 		query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
 	}
@@ -35,7 +36,6 @@ server.post('/update_date', function(req,res){
 		results.push(row);
 	});
 	query.on('end', () => {
-		console.log(results);
 		res.setHeader('Content-Type', 'application/json');
 		res.send(JSON.stringify(results));
 	});
