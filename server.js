@@ -11,6 +11,16 @@ var client = new pg.Client(conString);
 			return console.error('could not connect to postgres', err);
 	})
 
+var port = 3000;
+var server = express();
+server.use(express.static(__dirname + '/public'));
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+
+server.listen(port, function(){
+	console.log('server listening on port ' + port);
+});
+
 const query = client.query(
 	"select COUNT(id), primary_type from crimes where primary_type = 'HOMICIDE' OR primary_type = 'BURGLARY' OR primary_type = 'ASSAULT' OR primary_type = 'KIDNAPPING' OR primary_type = 'SEX OFFENSE' group by primary_type");
 
@@ -31,21 +41,16 @@ query.on('end', () => {
 	}
 });
 
-var server = express();
-server.use(express.static(__dirname + '/public'));
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
-
-//server.post('/first.html', function(req, res){
-	//return res.redirect('/first.html');
-//});
-
 server.post('/first.html', function(req, res){
+	return res.redirect('/first.html');
+});
+
+server.post('/update_date', function(req,res){
+	
+});
+
+server.get('/get_primary_type', function(req,res){
 	res.setHeader('Content-Type', 'application/json');
 	res.send(JSON.stringify(graphData));
 });
 
-var port = 10001;
-server.listen(port, function(){
-	console.log('server listening on port ' + port);
-});
