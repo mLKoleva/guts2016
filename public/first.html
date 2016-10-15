@@ -89,6 +89,7 @@
 		</div>
 	</form>
 	<h2 class="col-md-10 text-center"> Crime type </h2>
+	<div id="test"></div>
 	<div id="table" class="col-md-10"></div>
     <script src="//d3js.org/d3.v3.min.js"></script>
 	<script src="bullet.js"></script>
@@ -156,6 +157,19 @@
         $(function () {
             $('.datepicker').datepicker();
         });
+    </script>
+    <script>
+    	$('button').click(function(){
+    		$.ajax('/first.html', function(list){
+    			$.ajax({
+    				type: 'get',
+    				url: '/first.html',
+    				success: function(data){
+    					console.log(data);
+    				}
+    			});
+    		});
+    	});
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
