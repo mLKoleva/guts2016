@@ -1,0 +1,23 @@
+{
+  "name": "crimedatavisualisation",
+  "version": "1.0.0",
+  "description": "Chicago crime data visualisation",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mLKoleva/guts2016.git"
+  },
+  "author": "ml koleva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mLKoleva/guts2016/issues"
+  },
+  "homepage": "https://github.com/mLKoleva/guts2016#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
