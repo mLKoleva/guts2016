@@ -135,6 +135,7 @@ $('document').ready(function () {
 		});
 
 	$('button').on('click', function(){
+		event.preventDefault();
 		$.ajax({
 			type: 'post',
 			url: '/',
