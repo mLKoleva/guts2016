@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var pg = require('pg');
+var dateFormat = require('dateformat');
 
 var conString = "postgres://vesko:Veskotesco69@hsoc-prod.cwyfzstkekxt.eu-west-1.redshift.amazonaws.com:5439/dev";
 var client = new pg.Client(conString);
@@ -40,15 +41,28 @@ server.post('/', function(req,res){
 		case "5" : type = "'HOMICIDE'";
 		break;
 	}
+	if(req.body.dateFrom != ""){
+		var dateFrom = "'" + req.body.dateFrom + " 00:00:00'";
+	}
+	else{
+		var dateFrom = "'0001-01-01 00:00:00'";
+	}
+	if(req.body.dateTo != ""){
+		var dateTo = "'" + req.body.dateTo + " 00:00:00'";
+	}
+	else{
+		var dateTo = "'2016-10-06 00:00:00'"
+	}
+	
 	switch(req.body.display){
 		default:
-		case '1' : query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' and primary_type = '" + type + "' group by primary_type ORDER BY COUNT(id) DESC) limit 5");
+		case '1' : query = client.query("select * from(select COUNT(id), primary_type as column from crimes where primary_type != 'OTHER OFFENSE' and primary_type = " + type + " and date_time >= " + dateFrom + " and date_time <= " + dateTo + " group by primary_type ORDER BY COUNT(id) DESC) limit 5");
 					break;
-		case '2' : query = client.query("select COUNT(id), domestic as column from crimes where primary_type = " + type + " group by domestic order by COUNT(id) DESC");
+		case '2' : query = client.query("select COUNT(id), domestic as column from crimes where primary_type = " + type + " and date_time >= " + dateFrom + " and date_time <= " + dateTo + " group by domestic order by COUNT(id) DESC");
 					break;
-		case '3' : query = client.query("select COUNT(id), arrest as column from crimes where primary_type = " + type + " group by arrest order by COUNT(id) DESC");
+		case '3' : query = client.query("select COUNT(id), arrest as column from crimes where primary_type = " + type + " and date_time >= " + dateFrom + " and date_time <= " + dateTo + " group by arrest order by COUNT(id) DESC");
 					break;
-		case '4' : query = client.query("select * from(select COUNT(id),district as column from crimes where primary_type = " + type + " group by district ORDER BY COUNT(id) DESC) limit 5");
+		case '4' : query = client.query("select * from(select COUNT(id),district as column from crimes where primary_type = " + type + " and date_time >= " + dateFrom + " and date_time <= " + dateTo + " group by district ORDER BY COUNT(id) DESC) limit 5");
 					break;
 	}
 	query.on('row', (row) => {

@@ -141,7 +141,9 @@ $('document').ready(function () {
 			url: '/',
 			data: {
 				display: $("#display").val(),
-				type: $("#type").val()
+				type: $("#type").val(),
+				dateFrom: $('#dateFrom').val(),
+				dateTo : $('#dateTo').val()
 			},
 			datatype: 'json',
 			success: function(data){
@@ -155,7 +157,9 @@ $('document').ready(function () {
 						data[i]['column'] = 'Domestic';
 						}
 						else
+						{
 							data[i]['column'] = 'Street';
+						}
 					}
 				}
 				else if($('#display').val() === '3'){
@@ -163,8 +167,10 @@ $('document').ready(function () {
 						if(data[i]['column'] === 'true'){
 						data[i]['column'] = 'Arrest(s) made';
 						}
-						else{}
+						else
+						{
 							data[i]['column'] = 'No arrest(s)';
+						}
 					}
 				}
 				for(var i = 0; i<data.length; i++){
@@ -193,7 +199,7 @@ $('document').ready(function () {
 	});
 
 	$(function () {
-	    $('.datepicker').datepicker();
+	    $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
 	});
 	
 
