@@ -1,0 +1,154 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+	  <span height="50" width="50">
+		<img alt="Brand" src="static/cpd.png" height="50" width="50"></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+        <li class="active"><a href="#">Statistics</a></li>
+      </ul>
+    
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<style>
+		#table {
+		  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		  margin: auto;
+		  padding-top: 40px;
+		  position: relative;
+		}
+
+		.bullet { font: 10px sans-serif; }
+		.bullet .marker { stroke: #000; stroke-width: 2px; }
+		.bullet .tick line { stroke: #666; stroke-width: .5px; }
+		.bullet .range.s0 { fill: #eee; }
+		.bullet .range.s1 { fill: #ddd; }
+		.bullet .range.s2 { fill: #ccc; }
+		.bullet .measure.s0 { fill: lightsteelblue; }
+		.bullet .measure.s1 { fill: steelblue; }
+		.bullet .title { font-size: 14px; font-weight: bold; }
+		.bullet .subtitle { fill: #999; }
+		
+		.navbar { 
+			margin-bottom: 0;
+			background-color: #0e0e07;
+		}
+		
+		#sidebar{
+			background-color: #0e0e07;
+			color: white;
+			height: 90%;
+			padding-top: 0;
+		}
+		
+		label{
+			padding-top: 15px;
+			font-size: 16px !important;
+		}
+		
+		#submitButton{
+			padding-top: 10px;
+		}
+	</style>
+  </head>
+  <body>
+	<form class="col-md-2" id="sidebar" action="" method="post" enctype="multipart/form-data">
+		<div class="form-group">
+			<label>Display by</label>
+			<select class="form-control">
+			  <option>Crime type</option>
+			  <option>Domestic or street</option>
+			  <option>Arrest made</option>
+			  <option>Region</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="dateFrom">Date from</label>
+			<input type="text" id="dateFrom" name="dateFrom" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label for="dateTo">Date to</label>
+			<input type="text" id="dateTo" name="dateTo" class="form-control" />
+		</div>
+		<div id="submitButton">
+			<button type="submit" class="btn btn-primary pull-right"> Display</button>
+		</div>
+	</form>
+	<h2 class="col-md-10 text-center"> Crime type </h2>
+	<div id="table" class="col-md-10"></div>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+	<script src="bullet.js"></script>
+	<script>
+
+		var margin = {top: 5, right: 40, bottom: 20, left: 120},
+			width = 960 - margin.left - margin.right,
+			height = 50 - margin.top - margin.bottom;
+
+		var chart = d3.bullet()
+			.width(width)
+			.height(height);
+
+		d3.json("bullets.json", function(error, data) {
+		  if (error) throw error;
+
+		  var svg = d3.select("#table").selectAll("svg")
+			  .data(data)
+			.enter().append("svg")
+			  .attr("class", "bullet")
+			  .attr("width", width + margin.left + margin.right)
+			  .attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			  .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+			  .call(chart);
+
+		  var title = svg.append("g")
+			  .style("text-anchor", "end")
+			  .attr("transform", "translate(-6," + height / 2 + ")");
+
+		  title.append("text")
+			  .attr("class", "title")
+			  .text(function(d) { return d.title; });
+
+		  title.append("text")
+			  .attr("class", "subtitle")
+			  .attr("dy", "1em")
+			  .text(function(d) { return d.subtitle; });
+
+		  d3.selectAll("button").on("click", function() {
+			svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+		  });
+		});
+
+		function randomize(d) {
+		  if (!d.randomizer) d.randomizer = randomizer(d);
+		  d.ranges = d.ranges.map(d.randomizer);
+		  d.markers = d.markers.map(d.randomizer);
+		  d.measures = d.measures.map(d.randomizer);
+		  return d;
+		}
+
+		function randomizer(d) {
+		  var k = d3.max(d.ranges) * .2;
+		  return function(d) {
+			return Math.max(0, d + k * (Math.random() - .5));
+		  };
+		}
+
+	</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </body>
+</html>

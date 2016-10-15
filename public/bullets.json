@@ -1,0 +1,5 @@
+[
+  {"title":"Homicides","subtitle":"","ranges":[20,25,30],"measures":[22,27],"markers":[30]},
+  {"title":"Burglaries","subtitle":"","ranges":[20,25,30],"measures":[21,23],"markers":[26]},
+  {"title":"Assault","subtitle":"","ranges":[20,25,30],"measures":[10,32],"markers":[35]}
+]
