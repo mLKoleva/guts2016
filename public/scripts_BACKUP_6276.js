@@ -2,6 +2,24 @@ $('document').ready(function () {
 	var charts_definition = {
 			line:{
 					chart: {
+<<<<<<< HEAD
+						type: 'bar'
+					},
+					title: {
+						text: 'Crime type'
+					},
+					xAxis: {
+						categories: data['types']
+					},
+					yAxis: {
+					},
+					series: [{
+						data: data['values']
+					}]
+				});
+			}
+		});
+=======
 						renderTo : "wd1"
 		            	type: 'line'
 		        	},
@@ -100,6 +118,7 @@ $('document').ready(function () {
 
 	function create_widget(title,categories,yAxis_title,) {
 
+>>>>>>> 3ed22ceada6de7ae09cbd870e9f1e7b12f5d46d5
 	}
 
 	$.ajax({
