@@ -64,7 +64,7 @@
 			.width(width)
 			.height(height);
 
-		d3.json("bullets.json", function(error, data) {
+		d3.json("/get_primary_type", function(error, data) {
 		  if (error) throw error;
 
 		  var svg = d3.select("#table").selectAll("svg")
@@ -118,19 +118,6 @@
         $(function () {
             $('.datepicker').datepicker();
         });
-    </script>
-    <script>
-    	$('button').click(function(){
-    		$.ajax('/first.html', function(list){
-    			$.ajax({
-    				type: 'get',
-    				url: '/first.html',
-    				success: function(data){
-    					console.log(data);
-    				}
-    			});
-    		});
-    	});
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
