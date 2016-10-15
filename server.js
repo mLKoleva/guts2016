@@ -42,7 +42,6 @@ query.on('end', () => {
 	
 	graphData['types'] = types;
 	graphData['values'] = values;
-	console.log(graphData);
 });
 
 server.post('/update_date', function(req,res){
@@ -51,12 +50,10 @@ server.post('/update_date', function(req,res){
 	}
 	else{
 		query = client.query("select COUNT(id), domestic as column from crimes group by domestic order by COUNT(id) DESC");
-		console.log("second query");
 	}
 });
 
 server.get('/get_primary_type', function(req,res){
-	console.log(graphData);
 	res.setHeader('Content-Type', 'application/json');
 	res.send(JSON.stringify(graphData));
 });

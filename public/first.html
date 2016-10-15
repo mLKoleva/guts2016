@@ -89,62 +89,6 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="http://code.highcharts.com/highcharts.js"></script>
-	<script>
-		$('document').ready(function () { 
-			$.ajax({
-				type: 'get',
-				url: '/get_primary_type',
-				datatype: 'json',
-				success: function(data){
-					var myChart = Highcharts.chart('container', {
-						chart: {
-							type: 'bar'
-						},
-						title: {
-							text: 'Crime type'
-						},
-						xAxis: {
-							categories: data['types']
-						},
-						yAxis: {
-						},
-						series: [{
-							data: data['values']
-						}]
-					});
-				}
-			});
-		});
-		$('button').on('click', function(){
-			$.ajax({
-				type: 'post',
-				url: '/update_date',
-				datatype: 'json',
-				success: function(data){
-					var myChart = Highcharts.chart('container', {
-						chart: {
-							type: 'bar'
-						},
-						title: {
-							text: 'Crime type'
-						},
-						xAxis: {
-							categories: data['types']
-						},
-						yAxis: {
-						},
-						series: [{
-							data: data['values']
-						}]
-					});
-				}
-			});
-		});
-	</script>
-	<script type="text/javascript">
-        $(function () {
-            $('.datepicker').datepicker();
-        });
-    </script>
+	<script src="scripts.js"></script>
   </body>
 </html>
