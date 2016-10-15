@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var pg = require('pg');
-var dateFormat = require('dateformat');
 
 var conString = "postgres://vesko:Veskotesco69@hsoc-prod.cwyfzstkekxt.eu-west-1.redshift.amazonaws.com:5439/dev";
 var client = new pg.Client(conString);
