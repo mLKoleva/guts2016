@@ -120,7 +120,7 @@ $('document').ready(function () {
 						type: 'bar'
 					},
 					title: {
-						text: 'Crime type'
+						text: 'Crime type - All'
 					},
 					xAxis: {
 						categories: types
@@ -134,16 +134,39 @@ $('document').ready(function () {
 			}
 		});
 
-	$('button').on('click', function(){
+	$('button').on('click', function(event){
 		event.preventDefault();
 		$.ajax({
 			type: 'post',
 			url: '/',
+			data: {
+				display: $("#display").val(),
+				type: $("#type").val()
+			},
 			datatype: 'json',
 			success: function(data){
 				types = [];
 				values = [];
+				var title = $('#display option:selected').text() + " - " + $('#type option:selected').text();
 				
+				if($('#display').val() === '2'){
+					for(var i = 0; i<2; i++){
+						if(data[i]['column'] === 'true'){
+						data[i]['column'] = 'Domestic';
+						}
+						else
+							data[i]['column'] = 'Street';
+					}
+				}
+				else if($('#display').val() === '3'){
+					for(var i = 0; i<2; i++){
+						if(data[i]['column'] === 'true'){
+						data[i]['column'] = 'Arrest(s) made';
+						}
+						else{}
+							data[i]['column'] = 'No arrest(s)';
+					}
+				}
 				for(var i = 0; i<data.length; i++){
 					types[i] = data[i]['column'];
 					values[i] = parseInt(data[i]['count']);
@@ -154,7 +177,7 @@ $('document').ready(function () {
 						type: 'bar'
 					},
 					title: {
-						text: 'Crime type'
+						text: title
 					},
 					xAxis: {
 						categories: types
@@ -172,5 +195,7 @@ $('document').ready(function () {
 	$(function () {
 	    $('.datepicker').datepicker();
 	});
+	
+
 
 });

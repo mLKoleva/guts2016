@@ -30,13 +30,23 @@
   <body>
   	<div class="row">
   		<div class="col-md-12">
-  			<form class="col-md-2" id="sidebar" action="/" method="post">
+  			<form class="col-md-2" id="sidebar" action="/" method="post" id="myForm">
+				<div class="form-group">
+  					<label>Display</label>
+  					<select name="type" id="type" class="form-control">
+  					  <option value="1">All</option>
+  					  <option value="2">Sexual offense</option>
+  					  <option value="3">Narcotics</option>
+  					  <option value="4">Theft</option>
+					  <option value="5">Homicide</option>
+  					</select>
+  				</div>
   				<div class="form-group">
   					<label>Display by</label>
-  					<select name="display" class="form-control">
+  					<select name="display" id="display" class="form-control">
   					  <option value="1">Crime type</option>
   					  <option value="2">Domestic or street</option>
-  					  <option value="3">Arrest made</option>
+  					  <option value="3">Arrests made</option>
   					  <option value="4">Region</option>
   					</select>
   				</div>
