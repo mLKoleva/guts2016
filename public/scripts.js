@@ -1,107 +1,4 @@
 $('document').ready(function () { 
-	var charts_definition = {
-			line:{
-					chart: {
-						renderTo : "wd1",
-		            	type: 'line'
-		        	},
-		        	title: {
-		            	text: ''
-		        	},
-		        	xAxis: {
-		            	categories: []
-		        	},
-		        	yAxis: {
-		            	title: {
-		                	text: ''
-		            	}
-		        	},
-		        	series: [{
-		            	name: '',
-		            	data: []
-		        	}, {
-		            	name: '',
-		            	data: []
-		        	}]
-			},
-			bar:{
-				chart: {
-					renderTo : "wd2",
-	            	type: 'bar'
-	        	},
-	        	title: {
-	            	text: ''
-	        	},
-	        	xAxis: {
-	            	categories: []
-	        	},
-	        	yAxis: {
-	            	title: {
-	                	text: ''
-	            	}
-	        	},
-	        	series: [{
-	            	name: '',
-	            	data: []
-	        	}, {
-	            	name: '',
-	            	data: []
-	        	}]				
-			},
-			column:{
-				chart: {
-					renderTo : "wd3",
-	            	type: 'column'
-	        	},
-	        	title: {
-	            	text: ''
-	        	},
-	        	xAxis: {
-	            	categories: []
-	        	},
-	        	yAxis: {
-	            	title: {
-	                	text: ''
-	            	}
-	        	},
-	        	series: [{
-	            	name: '',
-	            	data: []
-	        	}, {
-	            	name: '',
-	            	data: []
-	        	}]
-			},
-			pie:{
-				chart: {
-					renderTo : "wd4",
-	            	type: 'pie'
-	        	},
-	        	title: {
-	            	text: ''
-	        	},
-	        	xAxis: {
-	            	categories: []
-	        	},
-	        	yAxis: {
-	            	title: {
-	                	text: ''
-	            	}
-	        	},
-	        	series: [{
-	            	name: '',
-	            	data: []
-	        	}, {
-	            	name: '',
-	            	data: []
-	        	}]
-			}
-	};
-
-	function create_widget(title,categories,yAxis_title) {
-
-	}
-
 	$.ajax({
 		type: 'get',
 		url: '/get_primary_type',
@@ -109,18 +6,69 @@ $('document').ready(function () {
 		success: function(data){
 			types = [];
 				values = [];
-				
+				var title = $('#display option:selected').text() + " - " + $('#type option:selected').text();
 				for(var i = 0; i<data.length; i++){
 					types[i] = data[i]['column'];
 					values[i] = parseInt(data[i]['count']);
 				}
 				
-				var myChart = Highcharts.chart('container', {
+				var wd1 = Highcharts.chart('wd1', {
 					chart: {
 						type: 'bar'
 					},
 					title: {
-						text: 'Crime type - All'
+						text: title
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
+
+				var wd2 = Highcharts.chart('wd2', {
+					chart: {
+						type: 'column'
+					},
+					title: {
+						text: title
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
+
+				var wd3 = Highcharts.chart('wd3', {
+					chart: {
+						type: 'line'
+					},
+					title: {
+						text: title
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
+
+				var wd4 = Highcharts.chart('wd4', {
+					chart: {
+						type: 'pie'
+					},
+					title: {
+						text: title
 					},
 					xAxis: {
 						categories: types
@@ -172,9 +120,60 @@ $('document').ready(function () {
 					values[i] = parseInt(data[i]['count']);
 				}
 				
-				var myChart = Highcharts.chart('container', {
+				var wd1 = Highcharts.chart('wd1', {
 					chart: {
 						type: 'bar'
+					},
+					title: {
+						text: title
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
+
+				var wd2 = Highcharts.chart('wd2', {
+					chart: {
+						type: 'column'
+					},
+					title: {
+						text: title
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
+
+				var wd3 = Highcharts.chart('wd3', {
+					chart: {
+						type: 'line'
+					},
+					title: {
+						text: title
+					},
+					xAxis: {
+						categories: types
+					},
+					yAxis: {
+					},
+					series: [{
+						data: values
+					}]
+				});
+
+				var wd4 = Highcharts.chart('wd4', {
+					chart: {
+						type: 'pie'
 					},
 					title: {
 						text: title
