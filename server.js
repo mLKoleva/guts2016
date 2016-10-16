@@ -22,6 +22,10 @@ server.get('/', function (req, res) {
   res.sendFile(__dirname + "/public/" + "index.html");
 });
 
+server.get('/home', function(req,res){
+	res.sendFile(__dirname + "/public/home.html");
+});
+
 server.post('/', function(req,res){
 	var results = [];
 	var query;
@@ -31,7 +35,7 @@ server.post('/', function(req,res){
 	switch(req.body.type){
 		case "1" : type = "primary_type";
 		break;
-		case "2" : type = "'SEXUAL OFFENSE'";
+		case "2" : type = "'SEX OFFENSE'";
 		break;
 		case "3" : type = "'NARCOTICS'";
 		break;

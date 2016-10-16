@@ -1,0 +1,37 @@
+	body {
+	 margin: 0;
+	 background-image: url('static/chicago2.jpg');
+	 background-size: 1440px 800px;
+	 background-repeat:no-repeat;
+	 display: compact;
+	 font: 13px/18px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	 }
+	 
+	.intro-text {
+		font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 70px;
+		line-height: 50px;
+		margin-bottom: 30px !important;
+		color: #fff;
+		padding-top: 200px;
+		padding-bottom: 50px;
+	}
+	
+	.page-scroll{
+		color: #fff;
+		background-color: #fed136;
+		border-color: #fed136;
+		border-radius: 3px;
+		font-size: 18px;
+		padding: 20px 40px;
+		font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+		text-transform: uppercase;
+		font-weight: 700;
+		text-align: center;
+	}
+	
+	div{
+		text-align: center;
+	}
