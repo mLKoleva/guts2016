@@ -26,6 +26,10 @@ server.get('/home', function(req,res){
 	res.sendFile(__dirname + "/public/home.html");
 });
 
+server.get('/ml', function(req,res){
+	res.sendFile(__dirname + "/public//static/ml.png");
+});
+
 server.post('/', function(req,res){
 	var results = [];
 	var query;
