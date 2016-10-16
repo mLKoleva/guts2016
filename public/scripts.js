@@ -24,6 +24,7 @@ $('document').ready(function () {
 					},
 					yAxis: {
 					},
+					
 					series: [{
 						data: values
 					}]
