@@ -7,6 +7,7 @@ $('document').ready(function () {
 			types = [];
 				values = [];
 				var title = $('#display option:selected').text() + " - " + $('#type option:selected').text();
+				var type = $('#type option:selected').text();
 				for(var i = 0; i<data.length; i++){
 					types[i] = data[i]['column'];
 					values[i] = parseInt(data[i]['count']);
@@ -26,6 +27,7 @@ $('document').ready(function () {
 					},
 					
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -43,6 +45,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -60,6 +63,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -77,6 +81,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -99,7 +104,7 @@ $('document').ready(function () {
 				types = [];
 				values = [];
 				var title = $('#display option:selected').text() + " - " + $('#type option:selected').text();
-				
+				var type = $('#type option:selected').text();
 				if($('#display').val() === '2'){
 					for(var i = 0; i<2; i++){
 						if(data[i]['column'] === 'true'){
@@ -140,6 +145,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -157,6 +163,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -174,6 +181,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
@@ -191,6 +199,7 @@ $('document').ready(function () {
 					yAxis: {
 					},
 					series: [{
+						name: type,
 						data: values
 					}]
 				});
